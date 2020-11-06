@@ -26,30 +26,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      -
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: pahud/github-codespace:latest
-#           build-args: |
-#             arg1=value1
-#             arg2=value2
+          tags: |
+            pahud/github-codespace:latest
+            ghcr.io/user/github-codespace:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-  push_to_github_registry:
-    name: GitHub Packages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v2
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          tags: pahud/github-codespace:latest
-#           tag_with_ref: true
-          push: true
