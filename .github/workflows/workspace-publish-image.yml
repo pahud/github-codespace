@@ -40,7 +40,7 @@ jobs:
           push: true
           tags: |
             pahud/github-codespace:latest
-            ghcr.io/user/github-codespace:latest
+            ghcr.io/pahud/github-codespace:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
