@@ -7,6 +7,7 @@ on:
   
 jobs:
   push_to_dockerhub:
+    name: Docker Hub
     runs-on: ubuntu-latest
     steps:
       -
@@ -38,7 +39,7 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   push_to_github_registry:
-    name: Push Docker image to GitHub Packages
+    name: GitHub Packages
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
