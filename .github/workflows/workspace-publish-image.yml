@@ -4,10 +4,14 @@ on:
     # Every hour
     - cron: 37 * * * *
   workflow_dispatch: {}
-  
+
+env:
+  dockerhub_tag: pahud/github-codespace:latest
+  ghcr_tag: ghcr.io/pahud/github-codespace:latest
+
 jobs:
-  push_to_dockerhub:
-    name: Build and Push
+  docker_hub:
+    name: Docker Hub
     runs-on: ubuntu-latest
     steps:
       -
@@ -26,6 +30,30 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .devcontainer
+          push: true
+          tags: "${{ env.dockerhub_tag }}"
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+  github_container:
+    name: Github Container Registry
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
         name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
         with:
@@ -37,10 +65,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: .devcontainer
           push: true
-          tags: |
-            pahud/github-codespace:latest
-            ghcr.io/pahud/github-codespace:latest
+          tags: "${{ env.ghcr_tag }}"
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
