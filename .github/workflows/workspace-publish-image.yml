@@ -88,5 +88,5 @@ jobs:
         uses: pahud/ecr-public-action@12e969f
         with:
           tags: |
-            public.ecr.aws/d7p2r8s3/${{ steps.repoName.outputs.reponame }}:latest
-            public.ecr.aws/d7p2r8s3/${{ steps.repoName.outputs.reponame }}:${{ steps.sha.outputs.sha7 }}
+            public.ecr.aws/pahudnet/${{ steps.repoName.outputs.reponame }}:latest
+            public.ecr.aws/pahudnet/${{ steps.repoName.outputs.reponame }}:${{ steps.sha.outputs.sha7 }}
