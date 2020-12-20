@@ -2,6 +2,10 @@
 
 This is a codespace template for general AWS CDK development in **GitHub Codespace**.
 
+public dockder image for this codespace:
+
+`public.ecr.aws/pahudnet/github-codespace:latest`
+
 
 ## Create AWS CDK App
 
