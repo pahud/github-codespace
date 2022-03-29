@@ -2,7 +2,6 @@ FROM jsii/superchain:1-buster-slim
 
 ARG KUBECTL_URL='https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl'
 ARG AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
-ARG CRED_PROCESS_URL='https://raw.githubusercontent.com/pahud/vscode/main/.devcontainer/bin/aws-sso-credential-process'
 ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip'
 
 USER root:root
@@ -25,10 +24,5 @@ RUN curl -o terraform.zip "${TERRAFORM_URL}" && \
   unzip terraform.zip && \
   mv terraform /usr/local/bin/ && \
   rm -f terraform.zip
-
-# install aws-sso-credential-process
-RUN cd /usr/local/bin && \
-  curl -o aws-sso-credential-process "${CRED_PROCESS_URL}" && \
-  chmod +x aws-sso-credential-process
 
 USER superchain:superchain

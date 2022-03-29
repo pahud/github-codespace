@@ -51,16 +51,10 @@ To use this profile, specify the profile name using --profile, as shown:
 aws s3 ls --profile default        
 ```
 
-## Configure `credential_process` for the `default` profile
+## Validate the Identity with AWS CLI
 
 ```sh
-aws configure set credential_process ${PWD}/utils/aws-sso-credential-process
-```
-
-export `AWS_SHARED_CREDENTIALS_FILE` 
-
-```sh
-export AWS_SHARED_CREDENTIALS_FILE=~/.aws/config
+$ aws sts get-caller-identity
 ```
 
 ## Start your CDK development
