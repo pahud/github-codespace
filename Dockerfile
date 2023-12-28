@@ -1,8 +1,8 @@
-FROM jsii/superchain:1-buster-slim
+FROM public.ecr.aws/jsii/superchain:1-buster-slim-node18
 
-ARG KUBECTL_URL='https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl'
+ARG KUBECTL_URL='https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl'
 ARG AWS_CLI_V2_URL='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
-ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip'
+ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_darwin_amd64.zip'
 
 USER root:root
 
