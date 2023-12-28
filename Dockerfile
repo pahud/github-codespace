@@ -9,10 +9,14 @@ USER root:root
 # install jq wget
 RUN apt-get update && apt-get install -y jq wget
 
+# install aws-cli v2
 RUN mv $(which aws) /usr/local/bin/awscliv1 && \
-  curl "${AWS_CLI_V2_URL}" -o "/tmp/awscliv2.zip" && \
-  unzip /tmp/awscliv2.zip -d /tmp && \
-  /tmp/aws/install --update
+  mkdir /tmp/awscliv2 && cd /tmp/awscliv2 && \
+  curl "${AWS_CLI_V2_URL}" -o "awscliv2.zip" && \
+  unzip awscliv2.zip && \
+  ./aws/install -b /usr/local/bin --update && \
+  rm -rf /tmp/awscliv2 && \
+  aws --version
 
 # install kubectl
 RUN curl -o kubectl "${KUBECTL_URL}" && \
